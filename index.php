@@ -45,7 +45,7 @@
 
   <h2>Formulário com múltiplas seleções</h2>
 
-  <form action="teste.php" method="POST">
+  <form action="teste.php" method="POST" enctype="multipart/form-data">
     <label for="nome">Nome:</label>
     <input type="text" id="nome" name="nome" required>
 
@@ -63,6 +63,9 @@
 
     <label for="crp">CRP:</label>
     <input type="text" id="crp" name="crp" required>
+
+    <label for="imagem">Envie uma Foto de Perfil:</label>
+    <input type="file" name="imagem" id="imagem" accept="image/*" required>
 
     <label for="genero">Gênero:</label>
     <select id="genero" name="genero" required>
