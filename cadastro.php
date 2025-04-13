@@ -14,8 +14,10 @@ $especialidades = $_POST['especialidades'] ?? null;
 $abord = $_POST['abordagens'] ?? null;
 $pass = password_hash($senha, PASSWORD_DEFAULT);
 $imagem = $_FILES['imagem'];
-
+$descricao = $_POST['desc'];
 $imagemPath = null;
+
+//Código acima recebe os dados vindos do formulário, e atribui cada valor a uma variável.
 
 if (isset($_FILES['imagem']) && $_FILES['imagem']['error'] === UPLOAD_ERR_OK) {
     $nomeTemp = $_FILES['imagem']['tmp_name'];
@@ -39,9 +41,9 @@ if (isset($_FILES['imagem']) && $_FILES['imagem']['error'] === UPLOAD_ERR_OK) {
     }
 }
 
+//Código acima trata o arquivo de imagem recebido, e salva-o em uma pasta na raiz do projeto
 
-
-$campos = [$nome, $senha, $idade, $preco, $email, $crp, $genero, $telefone, $especialidades, $abord];
+$campos = [$nome, $senha, $idade, $preco, $email, $crp, $genero, $telefone, $especialidades, $abord, $descricao];
 $camposValidos = true;
 
 foreach ($campos as $campo) {
@@ -51,11 +53,13 @@ foreach ($campos as $campo) {
     }
 }
 
+//Trecho acima, cria um array com os campos obrigatórios e verifica se alguma das posições está vazia, nula ou com espaço em branco
+
 if ($camposValidos) {
     try {
         $pdo->beginTransaction();
 
-        $stmt_psico = $pdo->prepare("INSERT INTO psico (nome, pass, age, email, preco_consulta, crp, genero, imagem_perfil) VALUES (:nome, :pass, :age, :email, :preco_consulta, :crp, :genero, :imagem_perfil)");
+        $stmt_psico = $pdo->prepare("INSERT INTO psico (nome, pass, age, email, preco_consulta, crp, genero, imagem_perfil, descricao) VALUES (:nome, :pass, :age, :email, :preco_consulta, :crp, :genero, :imagem_perfil, :descricao)");
         $stmt_psico->execute([
             ':nome' => $nome,
             ':pass' => $pass,
@@ -64,7 +68,8 @@ if ($camposValidos) {
             ':preco_consulta' => $preco,
             ':crp' => $crp,
             ':genero' => $genero,
-            ':imagem_perfil' =>$imagemPath
+            ':imagem_perfil' =>$imagemPath,
+            ':descricao' => $descricao
         ]);
 
         $lastId = $pdo->lastInsertId();
@@ -102,6 +107,11 @@ if ($camposValidos) {
         $pdo->rollBack();
         $erro = "[" . date('Y-m-d H:i:s') . "] Erro: " . $e->getMessage() . "\n";
         file_put_contents('logs/erros.log', $erro, FILE_APPEND);
+        echo "<script>
+        alert('Falha ao realizar o cadastro! Esse é erro no banco! Consulte o log');
+        window.location.href = 'index.php';
+    </script>";
+        //Retirar o "echo" depois
 
     }
 
@@ -112,4 +122,10 @@ if ($camposValidos) {
     </script>";
 }
 
+<<<<<<< HEAD
 ?>
+=======
+//Trecho acima realiza os inserts no banco, caso os dados do formulário estejam ok. Se houver falha nos dados do formulário, Exibe uma mensagem de erro e retorna pra "index.php". Se o erro for na instrução SQL ou qualquer questão relacionada ao banco de dados, é gerado um log, armazenado no "logs/errors.log" na raiz do projeto
+
+?>
+>>>>>>> 448ac9d (Criada página de login e backend)

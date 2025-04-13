@@ -42,8 +42,7 @@
   </style>
 </head>
 <body>
-
-  <h2>Formulário com múltiplas seleções</h2>
+  <br><h2>Formulário com múltiplas seleções</h2>
 
   <form action="teste.php" method="POST" enctype="multipart/form-data">
     <label for="nome">Nome:</label>
@@ -80,6 +79,9 @@
     <label for="telefone">Telefone:</label>
     <input type="tel" id="telefone" name="telefone" required>
 
+    <label for="descricao">Faça uma breve descrição sobre você:</label>
+    <textarea oninput="this.style.height='auto'; this.style.height=this.scrollHeight + 'px';" placeholder="Escreva algo aqui..." name="desc"></textarea>
+
     <label for="especialidades">Especialidades:</label>
     <select id="especialidades" name="especialidades[]" multiple>
       <option value="ansiedade">Ansiedade</option>
@@ -97,6 +99,7 @@
     </select>
 
     <button type="submit">Enviar</button>
+  <a href="login.php">Já é cadastrado? Faça login!</a>
   </form>
 
   <!-- Choices.js -->
