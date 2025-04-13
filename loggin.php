@@ -27,7 +27,9 @@
 			$stmt_psico->execute(['crp' => $crp]);
 
 			$password = $stmt_psico->fetch(PDO::FETCH_ASSOC);
-			$key = $password['id_psico'];
+			$id = $password['id_psico'];
+			$pass = $password['pass'];
+
 
 //O Trecho acima realiza a busca da senha e CRP na tabela principal utilizando o "CRP" do psicólogo, fornecido pelo usuário.
 
@@ -44,11 +46,22 @@
 								WHERE p.id_psico = :id
 								GROUP BY p.id_psico";
 
+				/*Abaixo, crio a "$_SESSION para levar os dados à página principal do usuário*/
+
 				$stmt_completion = $pdo->prepare($sql_completion);
-				$stmt_completion->execute(['id' => $key]);
+				$stmt_completion->execute(['id' => $id]);
 				$dados = $stmt_completion->fetch(PDO::FETCH_ASSOC);
 
-//Este código verifica se a senha digitada corresponde a senha presente no banco de dados. Caso esteja correta, realiza outro select utilizando "inner join", garantindo que as tabelas estejam preenchidas. Caso a senha esteja incorreta, deverá informar ao usuário e redirecioná-lo a tela de login
+				session_start();
+
+				$_SESSION['key'] = $id;
+				$_SESSION['dados'] = $dados;
+				echo "<script>
+        			window.location.href = 'pagina_principal.php';
+   				 	</script>";
+
+
+//Este código verifica se a senha digitada corresponde a senha presente no banco de dados. Caso esteja correta, realiza outro select utilizando "inner join", garantindo que as tabelas estejam preenchidas. Caso a senha esteja incorreta, deverá informar ao usuário e redirecioná-lo a tela de login.
 
 		} else {
 			echo "<script>

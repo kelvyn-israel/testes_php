@@ -44,7 +44,7 @@
 <body>
   <br><h2>Formulário com múltiplas seleções</h2>
 
-  <form action="teste.php" method="POST" enctype="multipart/form-data">
+  <form action="cadastro.php" method="POST" enctype="multipart/form-data">
     <label for="nome">Nome:</label>
     <input type="text" id="nome" name="nome" required>
 

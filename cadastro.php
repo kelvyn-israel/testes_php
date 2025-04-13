@@ -122,10 +122,6 @@ if ($camposValidos) {
     </script>";
 }
 
-<<<<<<< HEAD
 ?>
-=======
-//Trecho acima realiza os inserts no banco, caso os dados do formulário estejam ok. Se houver falha nos dados do formulário, Exibe uma mensagem de erro e retorna pra "index.php". Se o erro for na instrução SQL ou qualquer questão relacionada ao banco de dados, é gerado um log, armazenado no "logs/errors.log" na raiz do projeto
 
-?>
->>>>>>> 448ac9d (Criada página de login e backend)
+//Trecho acima realiza os inserts no banco, caso os dados do formulário estejam ok. Se houver falha nos dados do formulário, Exibe uma mensagem de erro e retorna pra "index.php". Se o erro for na instrução SQL ou qualquer questão relacionada ao banco de dados, é gerado um log, armazenado no "logs/errors.log" na raiz do projeto
